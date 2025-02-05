@@ -1,4 +1,4 @@
-const LogRequest = require("../models/LogRequest");
+const LogRequest = require("../models/system/LogRequest");
 
 const logRequestMiddleware = async (req, res, next) => {
     const start = Date.now(); // Lưu thời gian bắt đầu request
