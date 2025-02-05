@@ -1,5 +1,5 @@
 const find = require('find-process'); // Đảm bảo đã import thư viện find-process
-
+require('dotenv').config()
 // Biến lưu port cũ
 let previousPort = null;
 
@@ -30,11 +30,16 @@ async function startServer(app) {
 
     // Cập nhật port mới vào biến global
     previousPort = portCustom;
-
-    // Khởi động server
-    app.listen(portCustom, () => {
-        console.log(`🚀 Server đang chạy tại http://localhost:${portCustom}`);
-    });
+    if(process.env.NODE_ENV === 'prod') {
+        app.listen(9999, () => {
+            console.log(`🚀 Server đang chạy tại http://localhost:9999 tại chế độ prod`);
+        });
+    }else {
+        // Khởi động server
+        app.listen(portCustom, () => {
+            console.log(`🚀 Server đang chạy tại http://localhost:${portCustom} tại chế độ dev`);
+        });
+    }
 }
 
 module.exports = {startServer};
