@@ -2,19 +2,10 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 async function connect(){
   try {
-    // if(process.env.NODE_ENV === 'prod'){
-    //   await mongoose.connect(process.env.URL_DB_PRODUCTION);
-    //   console.log('Connect successfuly mode production!!!');
-    // }else {
-    //   await mongoose.connect(process.env.URL_DB);
-    //   console.log('Connect successfuly mode dev!!!');
-    //
-    // }
-    await mongoose.connect('mongodb+srv://anlpsep19:19092003@booking-car-app-databas.pv08n.mongodb.net/booking-car-db');
-    // console.log('Connect successfuly mode dev!!!');
+    await mongoose.connect(process.env.URL_DB);
     console.log("Kết nối cơ sở dữ liệu thành công !!!")
   } catch (error) {
-    console.log('connect fail!!!');
+    console.log('Kết nối cơ sở dữ liệu thất bại!!!');
   }
 }
 
