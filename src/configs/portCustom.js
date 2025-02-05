@@ -32,7 +32,7 @@ async function startServer(app) {
     previousPort = portCustom;
     if(process.env.NODE_ENV === 'prod') {
         app.listen(9999, () => {
-            console.log(`🚀 Server đang chạy tại http://localhost:9999 tại chế độ prod`);
+            console.log(`🚀 Server đang chạy tại cổng 9999 tại chế độ prod`);
         });
     }else {
         // Khởi động server
