@@ -10,7 +10,7 @@ async function connect(){
     //   console.log('Connect successfuly mode dev!!!');
     //
     // }
-    await mongoose.connect(process.env.URL_DB);
+    await mongoose.connect('mongodb+srv://anlpsep19:19092003@booking-car-app-databas.pv08n.mongodb.net/booking-car-db');
     // console.log('Connect successfuly mode dev!!!');
     console.log("Kết nối cơ sở dữ liệu thành công !!!")
   } catch (error) {
