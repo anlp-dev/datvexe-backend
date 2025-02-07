@@ -3,25 +3,39 @@ const bcrypt = require("bcryptjs");
 const STATUS_ACCOUNT = require("../enums/statusAccount");
 const inputValidationAccount = async (req, res, next) => {
   try {
-    const { username, email, phone } = req.body;
+    const {username, password, email, fullname, phone} = req.body;
 
     if (!username || !email || !phone) {
       return res.status(400).json({ status: 400, message: "Thiếu thông tin đăng ký" });
     }
 
-    const existingUser = await User.findOne({
-      $or: [{ username }, { email }, { phone }],
-    });
-
-    const errors = [];
-    if (existingUser) {
-      if (existingUser.username === username) errors.push("Username đã tồn tại");
-      if (existingUser.email === email) errors.push("Email đã tồn tại");
-      if (existingUser.phone === phone) errors.push("Số điện thoại đã tồn tại");
+    const isValidUsername = await User.findOne({ username: username });
+    if(isValidUsername){
+      throw new Error("Tài khoản đã tốn tại.");
     }
 
-    if (errors.length > 0) {
-      return res.status(400).json({ status: 400, message: errors });
+    const isValidEmail = await User.findOne({ email: email });
+    if(isValidEmail){
+      throw new Error("Email đã tốn tại.");
+    }
+
+    const isValidPhone = await User.findOne({ phone: phone });
+    if(isValidPhone){
+      throw new Error("Số điện thoại đã tốn tại.");
+    }
+
+
+    if (password.length < 8) {
+      throw new Error("Mật khẩu phải ít nhất 8 kí tự.");
+    }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
+    if (!passwordRegex.test(password)) {
+      throw new Error("Mật khẩu phải bao góp 1 ký tự với 1 số.");
+    }
+
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+      throw new Error("Số điện thoại không hợp lệ.");
     }
 
     next();
