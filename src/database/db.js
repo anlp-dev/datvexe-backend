@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 async function connect(){
   try {
-    await mongoose.connect(process.env.URL_DB);
+    await mongoose.connect(process.env.URL_DB_DEV);
     console.log("Kết nối cơ sở dữ liệu thành công !!!")
   } catch (error) {
     console.log('Kết nối cơ sở dữ liệu thất bại!!!');
