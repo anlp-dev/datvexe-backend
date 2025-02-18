@@ -35,9 +35,9 @@ async function startServer(app) {
             console.log(`🚀 Server đang chạy tại cổng 9999 tại chế độ prod`);
         });
     }else {
-        // Khởi động server
-        app.listen(portCustom, () => {
-            console.log(`🚀 Server đang chạy tại http://localhost:${portCustom} tại chế độ dev`);
+        // Khởi động servers
+        app.listen(9999, () => {
+            console.log(`🚀 Server đang chạy tại http://localhost:9999 tại chế độ dev`);
         });
     }
 }

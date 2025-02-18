@@ -3,8 +3,8 @@ const express = require("express");
 const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
-const secret = require("./secrets");
-const authMiddleware = require("../middleware/authMiddleware");
+const secret = require("./Secrets");
+const authMiddleware = require("../middleware/AuthMiddleware");
 
 const security = (app) => {
   // Middleware xử lý JSON body

@@ -11,10 +11,4 @@ const TypeBusSchema = new Schema({
     updatedAt: { type: Date, default: null } // Thời điểm cập nhật gần nhất
 });
 
-// Tạo sẵn 2 loại xe: 34 giường và 20 giường khi khởi tạo DB
-const defaultBusTypes = [
-    { name: '34 giường', code: 'BUS34', seats: 34, features: ['WiFi', 'Nước uống', 'Điều hòa'], description: 'Xe giường nằm 34 chỗ tiện nghi' },
-    { name: '20 giường', code: 'BUS20', seats: 20, features: ['WiFi', 'Điều hòa', 'Màn hình riêng'], description: 'Xe giường nằm 20 chỗ cao cấp' }
-];
-
 module.exports = mongoose.model('TypeBus', TypeBusSchema, 'type_bus');
