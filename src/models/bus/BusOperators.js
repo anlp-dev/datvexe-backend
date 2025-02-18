@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const BusOperatorsSchema = new Schema({
-    name: { type: String, required: true, unique: true }, // Tên nhà xe
+    name: { type: String, required: true }, // Tên nhà xe
     types: { type: mongoose.Schema.Types.ObjectId, ref: 'TypeBus', required: true }, // Loại xe
     phone: { type: String, required: true }, // Số điện thoại
+    bienSoXe: {type: String, required: true},
     status: { type: Boolean, default: true }, // Trạng thái nhà xe (true: hoạt động, false: ngừng)
     rating: { type: Number, default: 0, min: 0, max: 5 }, // Điểm đánh giá trung bình (0-5)
     totalTrips: { type: Number, default: 0 }, // Tổng số chuyến xe đã chạy

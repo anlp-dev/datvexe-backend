@@ -10,6 +10,15 @@ class TripController{
             resExport(500, e.message, null, res);
         }
     }
+
+    async loadSchedule(req, res){
+        try{
+            const resData = await TripService.loadBusSchedule(req.body);
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
 }
 
 module.exports = new TripController();
