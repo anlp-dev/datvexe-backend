@@ -4,5 +4,6 @@ const authRouter = require("./auth/AuthRouter");
 
 router.use("/auth", authRouter);
 router.use("/trip", require("./trip/TripRouter"));
+router.use("/booking", require("./booking/BookingRouter"));
 
 module.exports = router;
