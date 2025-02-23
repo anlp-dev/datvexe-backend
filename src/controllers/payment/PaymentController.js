@@ -1,18 +1,18 @@
 const {resExport} = require("../../enums/resExport");
-const BookingService = require("../../services/booking/BookingService")
-class BookingController {
-    async getByUser(req, res){
+const PaymentService = require("../../services/payment/PaymentService");
+class PaymentController{
+    createPayment(req, res){
         try{
-            const resData = await BookingService.getByUserId(req.params.id);
+            const resData = PaymentService.createPaymentUrl(req);
             resExport(200, "Thành công", resData, res);
         }catch (e) {
             resExport(500, e.message, null, res);
         }
     }
 
-    async getById(req, res){
+    async createVietQr(req, res){
         try{
-            const resData = await BookingService.getByBookingId(req.params.id);
+            const resData = await PaymentService.createVietQR(req.body);
             resExport(200, "Thành công", resData, res);
         }catch (e) {
             resExport(500, e.message, null, res);
@@ -20,4 +20,4 @@ class BookingController {
     }
 }
 
-module.exports = new BookingController();
+module.exports = new PaymentController();
