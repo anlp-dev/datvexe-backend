@@ -9,6 +9,7 @@ const User = require("../../models/user/User");
 const BookingController = require("../../controllers/booking/BookingController")
 
 router.get("/user/:id", BookingController.getByUser);
+router.get("/:id", BookingController.getById);
 
 
 module.exports = router;

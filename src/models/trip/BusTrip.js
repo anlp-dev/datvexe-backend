@@ -15,7 +15,7 @@ const BookingTripSchema = new Schema({
     note: {type: String},
     status: {
         type: String,
-        enum: ['pending', 'confirmed', 'cancelled', 'completed', 'draft'],
+        enum: ['pending', 'confirmed', 'payed', 'cancelled', 'completed', 'draft'],
         default: 'pending'
     }, // Trạng thái vé
     paymentMethod: {
