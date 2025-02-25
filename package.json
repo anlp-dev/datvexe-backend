@@ -41,6 +41,7 @@
     "morgan": "1.10.0",
     "netlify-cli": "^17.38.0",
     "netlify-lambda": "^2.0.16",
+    "ngrok": "^5.0.0-beta.2",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.16",
     "passport": "0.7.0",

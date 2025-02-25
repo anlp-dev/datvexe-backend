@@ -18,6 +18,15 @@ class PaymentController{
             resExport(500, e.message, null, res);
         }
     }
+
+    async changeStatusPayment(req, res){
+        try{
+            const resData = await PaymentService.changeStatusPayment(req.body);
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
 }
 
 module.exports = new PaymentController();

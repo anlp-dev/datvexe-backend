@@ -4,6 +4,7 @@ const QRCode = require("qrcode");
 const crc = require("crc");
 const axios = require("axios");
 const Transaction = require("../../models/booking/Transaction");
+const BusTrip = require("../../models/trip/BusTrip");
 
 class PaymentService {
     constructor() {
@@ -41,7 +42,7 @@ class PaymentService {
             let tmnCode = this.vnpTmnCode;
             let secretKey = this.vnpHashSecret;
             let vnpUrl = this.vnpUrl;
-            let returnUrl = "http://localhost:8888/order/vnpay_return";
+            let returnUrl = "http://localhost:9999/vnpay_return";
 
             let date = new Date();
             let createDate = date.toISOString().replace(/[-:.TZ]/g, "").slice(0, 14); // Format YYYYMMDDHHmmss
@@ -137,6 +138,29 @@ class PaymentService {
             // }
         } catch (e) {
             throw new Error(e.message);
+        }
+    }
+
+    async changeStatusPayment(dataReq){
+        try{
+            const {id, status, paymentMethod} = dataReq;
+            if(id === null || status === null || paymentMethod === null) throw new Error("Thông tin không hợp lệ !")
+            if(status === "confirmed" || status === "payed" || status === "cancelled" || status === "completed" || status === "draft"){
+                if(paymentMethod === "cash" || paymentMethod === "VNPay" || paymentMethod === "Banking"){
+                    const busTrip = await BusTrip.findById(id);
+                    if(!busTrip) throw new Error("Không tìm thấy lịch trình !")
+                    busTrip.status = status;
+                    busTrip.paymentMethod = paymentMethod;
+                    await busTrip.save();
+                    return busTrip;
+                }else{
+                    throw new Error("Mô hình thanh toán không hợp lệ !")
+                }
+            }else{
+                throw new Error("Trạng thái không hợp lệ !");
+            }
+        }catch (e) {
+            throw new Error(e)
         }
     }
 }
