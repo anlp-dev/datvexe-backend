@@ -24,7 +24,6 @@ const inputValidationAccount = async (req, res, next) => {
       throw new Error("Số điện thoại đã tốn tại.");
     }
 
-
     if (password.length < 8) {
       throw new Error("Mật khẩu phải ít nhất 8 kí tự.");
     }
