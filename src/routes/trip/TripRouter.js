@@ -14,7 +14,7 @@ router.post("/schedule", TripController.loadSchedule);
 router.post("/create", TripController.createTrip);
 
 // them moi lich trinh xe chay
-router.post("/themLoaiXe", async (req, res) => {
+router.post("/generate", async (req, res) => {
     // Danh sách busOperator
     const busOperators = [
         "67b290f0f4d0673d14b0d912",
