@@ -1,46 +1,76 @@
 const express = require("express");
 const router = express.Router();
-const passport = require("passport");
-const {inputValidationAccount, inputValidationLogin} = require("../../middleware/InputValidation");
-const securityMiddleware = require("../../middleware/SecurityMiddleware");
+const { inputValidationAccount, inputValidationLogin } = require("../../middleware/InputValidation");
 const authContoller = require("../../controllers/auth/authController");
-const Role = require("../../models/user/Role")
-const Permission = require("../../models/user/Permission")
-const RolePermission = require("../../models/user/RolePermission")
-const {checkPermission} = require("../../middleware/AuthPermission");
 
-// Đăng ký
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: API xác thực người dùng
+ */
+
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: Đăng ký tài khoản mới
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: "newuser"
+ *               password:
+ *                 type: string
+ *                 example: "password123"
+ *               email:
+ *                 type: string
+ *                 example: "user@example.com"
+ */
 router.post("/register", inputValidationAccount, authContoller.register);
-// Đăng nhập
+
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Đăng nhập và nhận token
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: "user"
+ *               password:
+ *                 type: string
+ *                 example: "123456"
+ */
 router.post("/login", inputValidationLogin, authContoller.login);
 
+/**
+ * @swagger
+ * /auth/profile/{id}:
+ *   get:
+ *     summary: Lấy thông tin người dùng theo ID
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         example: 1
+ */
 router.get("/profile/:id", authContoller.getDetailUser);
-
-router.post("/permission/add", async(req, res) => {
-    // const dataReq = {
-    //     name: req.body.name,
-    //     code: req.body.code,
-    //     description: req.body.description,
-    // }
-    // const newPermission = new Permission(dataReq);
-    // await newPermission.save();
-    // res.json(newPermission)
-    // const newRole = new Role({
-    //     name: "Admin",
-    //     code: "SUPER_ADMIN",
-    //     description: "Super Admin"
-    // })
-    // await newRole.save();
-    //
-    // res.json(newRole);
-
-    const newRolePermission = new RolePermission({
-        roleId: "67be8368079a425e9e66e21c",
-        permissionIds: "67be831192f94a626c4fe805"
-    })
-    await newRolePermission.save();
-    res.json(newRolePermission);
-})
-
 
 module.exports = router;

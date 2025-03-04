@@ -26,6 +26,9 @@ configViewEngine(app);
 const security = require('../src/configs/Security');
 security(app);
 
+const setupSwagger = require('../src/swagger/swagger');
+setupSwagger(app);
+
 // Định tuyến chính
 const router = require('../src/routes/MainRouter');
 app.use(router);

@@ -19,7 +19,7 @@ const auth = async (req, res, next) => {
     if (!decoded || !decoded.exp) {
       return res.status(401).json({
         status: 401,
-        message: "Unauthorized: Invalid token",
+        message: "Đã hết phiên đăng nhập vui lòng đăng nhập lại !",
       });
     }
 

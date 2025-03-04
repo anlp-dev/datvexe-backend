@@ -35,10 +35,8 @@ class authService {
         try {
             const { username, password } = data;
             // Tìm user theo username
-            const user = await User.findOne({ username });
-
-            // Tạo token
-            const token = this.generateToken(user._id);
+            const user = await User.findOne({ username }).populate('roleId', 'code');
+            const token = this.generateToken(user._id, user.roleId.code);
             if (!token) {
                 throw new Error("Lỗi khi tạo token!");
             }
@@ -64,8 +62,8 @@ class authService {
     }
 
 
-    generateToken(userId) {
-        const token = jwt.sign({ userId }, secret.JWT_SECRET_KEY, { expiresIn: '30m' });
+    generateToken(userId, role) {
+        const token = jwt.sign({ userId, role }, secret.JWT_SECRET_KEY, { expiresIn: '30m' });
         return token;
     }
 }
