@@ -39,6 +39,15 @@ class TripController{
         }
     }
 
+    async cancelTrip(req, res){
+        try{
+            const resData = await TripService.cancelBusTrip(req.params.id);
+            resExport(MESSAGE.SUCCESS.status, MESSAGE.SUCCESS.msg, resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
     async generate(req, res){
         try{
             const resData = await TripService.generateTrip(req.body);

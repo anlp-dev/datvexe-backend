@@ -13,6 +13,7 @@ router.get("/location/all", TripController.loadDiaDiem);
 router.get("/schedule/:id", TripController.getScheduleById)
 router.post("/schedule", TripController.loadSchedule);
 router.post("/create", TripController.createTrip);
+router.post("/cancel/:id", TripController.cancelTrip);
 router.post("/generate", checkPermission("CRUD_BUS_SCHEDULE"), TripController.generate);
 
 

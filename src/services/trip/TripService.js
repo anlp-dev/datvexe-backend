@@ -4,6 +4,8 @@ const BusSchedule = require("../../models/trip/BuSchedule");
 const TypeBus = require("../../models/bus/TypeBus");
 const BusOperator = require("../../models/bus/BusOperators");
 const BusTrip = require("../../models/trip/BusTrip");
+const Notifice = require("../../models/system/Notifice");
+const TYPE_THONG_BAO = require("../../enums/typeThongBao");
 const generateTicketCode = require("../../utils/generate");
 
 class TripService {
@@ -106,10 +108,33 @@ class TripService {
                 note: note,
                 paymentMethod: paymentMethod,
             })
-
             await newTrip.save();
 
+           const newNotifice = new Notifice({
+                type: TYPE_THONG_BAO.SUCCESS,
+                title: "Đặt xe thành công",
+                message: `Chuyến xe của quý khách khởi hành từ ${pickupLocation} tới ${dropoffLocation} vào lúc ${departureTime}`,
+                tab: "events",
+                user: user,
+            })
+
+            await newNotifice.save();
+
             return BusTrip.find({code: newTrip.code}).populate("user").populate("busSchedule");
+        }catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async cancelBusTrip(id){
+        try{
+            const busTrip = await BusTrip.findById(id);
+            if(!busTrip){
+                throw new Error("Vé không tồn tại !");
+            }
+            busTrip.status = "cancelled";
+            await busTrip.save();
+            return busTrip;
         }catch (e) {
             throw new Error(e);
         }
