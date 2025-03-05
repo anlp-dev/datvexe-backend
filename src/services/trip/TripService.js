@@ -126,13 +126,15 @@ class TripService {
         }
     }
 
-    async cancelBusTrip(id){
+    async cancelBusTrip(dataReq){
         try{
+            const {id, reason} = dataReq;
             const busTrip = await BusTrip.findById(id);
             if(!busTrip){
                 throw new Error("Vé không tồn tại !");
             }
             busTrip.status = "cancelled";
+            busTrip.reasonCancel = reason;
             await busTrip.save();
             return busTrip;
         }catch (e) {
