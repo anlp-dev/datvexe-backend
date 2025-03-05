@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(logRequest);
 
 // Cấu hình bảo mật, CORS
-app.use(cors());
+app.use(cors({ origin: "*" }));
 require('../src/configs/Auth');
 
 // Kết nối Database
