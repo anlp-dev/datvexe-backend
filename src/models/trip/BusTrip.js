@@ -23,7 +23,8 @@ const BookingTripSchema = new Schema({
         enum: ['cash', 'VNPay', 'Banking'],
         required: true,
         default: 'cash'
-    }, // Phương thức thanh toán
+    }, // Phương thức thanh toán,
+    reasonCancel: { type: String, default: null }, // Lý do hủy vé
     transactionId: { type: String, default: null }, // Mã giao dịch (nếu thanh toán online)
     createdAt: { type: Date, default: Date.now }, // Thời gian đặt vé
     updatedAt: { type: Date, default: null } // Thời gian cập nhật đơn vé
