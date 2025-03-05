@@ -1,0 +1,5 @@
+class SystemController {
+
+}
+
+module.exports = new SystemController();

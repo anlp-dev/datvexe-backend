@@ -1,0 +1,41 @@
+const express = require("express");
+const router = express.Router();
+const passport = require("passport");
+const {inputValidationAccount, inputValidationLogin} = require("../../middleware/InputValidation");
+const securityMiddleware = require("../../middleware/SecurityMiddleware");
+const authContoller = require("../../controllers/auth/authController");
+const Role = require("../../models/user/Role")
+const Permission = require("../../models/user/Permission")
+const RolePermission = require("../../models/user/RolePermission")
+const {checkPermission} = require("../../middleware/AuthPermission");
+
+// Đăng ký
+router.post("/register", inputValidationAccount, authContoller.register);
+
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Đăng nhập và nhận token
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: "user"
+ *               password:
+ *                 type: string
+ *                 example: "123456"
+ */
+router.post("/login", inputValidationLogin, authContoller.login);
+
+
+router.get("/profile/:id", authContoller.getDetailUser);
+
+
+module.exports = router;
