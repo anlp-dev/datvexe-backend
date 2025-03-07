@@ -136,6 +136,15 @@ class TripService {
             busTrip.status = "cancelled";
             busTrip.reasonCancel = reason;
             await busTrip.save();
+
+            const newNotifice = new Notifice({
+                type: TYPE_THONG_BAO.CANCEL,
+                title: `Hủy vé thành công vé ${busTrip.code}`,
+                message: `Quý khách huyệt xe với lý do: ${reason}`,
+                tab: "events",
+                user: busTrip.user,
+            })
+            await newNotifice.save();
             return busTrip;
         }catch (e) {
             throw new Error(e);
