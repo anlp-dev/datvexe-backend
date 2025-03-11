@@ -7,6 +7,7 @@ const tripRouter = require("./trip/TripRouter");
 const systemRouter = require("./system/SystemRouter");
 const adminRouter = require("./admin/AdminRouter");
 const notificeRouter = require("./system/NotificeRouter");
+const managerRouter = require("./manage/ManageRouter");
 
 router.use("/auth", authRouter);
 router.use("/trip",tripRouter);
@@ -15,5 +16,6 @@ router.use("/payment", paymentRouter);
 router.use("/system", systemRouter);
 router.use("/admin", adminRouter);
 router.use("/notifice", notificeRouter);
+router.use("/manage", managerRouter);
 
 module.exports = router;

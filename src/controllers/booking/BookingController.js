@@ -18,6 +18,15 @@ class BookingController {
             resExport(500, e.message, null, res);
         }
     }
+
+    async getHistoryByUserId(req, res){
+        try{
+            const resData = await BookingService.getHistoryBookingByUserId(req.params.id);
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
 }
 
 module.exports = new BookingController();

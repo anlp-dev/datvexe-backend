@@ -11,7 +11,6 @@ class PaymentService {
         this.vnpTmnCode = "PM4KZ9GU";
         this.vnpHashSecret = "E2VAY4DNJTQ7544ENWZA1GNKMFULXKG1";
         this.vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        // this.vnpUrl = "https://pay.vnpay.vn/vpcpay.html"
     }
 
      sortObject(obj) {
