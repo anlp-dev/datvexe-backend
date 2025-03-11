@@ -73,4 +73,8 @@ router.post("/login", inputValidationLogin, authContoller.login);
  */
 router.get("/profile/:id", authContoller.getDetailUser);
 
+router.get("/email/verify/:id", authContoller.updateStatusUser);
+
+router.put("/profile/:id", authContoller.updateProfileUser);
+
 module.exports = router;

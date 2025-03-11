@@ -56,6 +56,7 @@ class TripService {
             const busSchedule = await BusSchedule.find({
                 benXeKhoiHanh: stationStart._id,
                 benXeDichDen: stationEnd._id,
+                status: "scheduled",
                 // date: {$eq: date}
             })
                 .populate({
@@ -63,9 +64,7 @@ class TripService {
                     populate: { path: "types" }
                 })
                 .populate("benXeKhoiHanh")
-                .populate("benXeDichDen")
-                .lean();
-
+                .populate("benXeDichDen");
             const filterBusSchedule = busSchedule.filter((item) => {
                 return new Date(item.date).toISOString().split("T")[0] === new Date(date).toISOString().split("T")[0];
             });
@@ -73,6 +72,7 @@ class TripService {
             if(filterBusSchedule.length < 1){
                 throw new Error("Không tìm thấy chuyến xe phù hợp với lựa chọn của bạn!");
             }
+            console.log(filterBusSchedule)
             return filterBusSchedule;
         }catch (e) {
             throw new Error(e);
@@ -136,6 +136,12 @@ class TripService {
             busTrip.status = "cancelled";
             busTrip.reasonCancel = reason;
             await busTrip.save();
+
+            const checkBusSchedule = await BusSchedule.findById(busTrip.busSchedule);
+            checkBusSchedule.seatSelected = checkBusSchedule.seatSelected.filter(seat => !busTrip.seats.includes(seat));
+            checkBusSchedule.availableSeats = checkBusSchedule.availableSeats + busTrip.seats.length;
+
+            await checkBusSchedule.save();
 
             const newNotifice = new Notifice({
                 type: TYPE_THONG_BAO.CANCEL,

@@ -28,6 +28,26 @@ class authController {
             resExport(500, e.message, null, res);
         }
     }
+
+    async updateProfileUser(req, res){
+        try{
+            const res_data = await authService.updateProfileUserById(req.params.id, req.body);
+            resExport(200, "Cap nhat thong tin nguoi dung thanh cong", res_data, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async updateStatusUser(req, res){
+        try{
+            const res_data = await authService.updateStatusUser(req.params.id);
+            if(res_data){
+                res.send("Kích hoạt tài khoản thành công!");
+            }
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
 }
 
 module.exports = new authController();

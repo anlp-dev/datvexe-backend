@@ -10,7 +10,7 @@ const BookingController = require("../../controllers/booking/BookingController")
 
 router.get("/user/:id", BookingController.getByUser);
 router.get("/:id", BookingController.getById);
-router.get("/history/user/:id");
+router.get("/history/user/:id", BookingController.getHistoryByUserId);
 
 
 module.exports = router;

@@ -35,6 +35,24 @@ class BookingService{
             throw new Error(e);
         }
     }
+
+    async getHistoryBookingByUserId(id){
+        try{
+            const busTrip = await BusTrip.find({
+                user: id,
+                status: { $in: ["cancelled", "confirmed"] }
+            })
+                .populate("busSchedule")
+                .lean();
+
+            if (busTrip.length < 1) throw new Error("Không tìm thấy lịch trình!");
+
+            console.log(busTrip);
+            return busTrip;
+        }catch (e) {
+            throw new Error(e);
+        }
+    }
 }
 
 module.exports = new BookingService();
