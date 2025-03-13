@@ -146,7 +146,12 @@ router
     .post("/users", AdminController.addUserByAdmin)
     .put("/users", AdminController.updateUserByAdmin)
     .delete("/users/:id", AdminController.deleteUserByAdmin)
+// manage ticket
+router.get("/ticket", AdminController.getTicketByAdmin)
 
+// manage bus
+router
+    .get("/bus", AdminController.getAllBusByAdmin);
 
 
 module.exports = router;

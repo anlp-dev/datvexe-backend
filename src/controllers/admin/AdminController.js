@@ -1,6 +1,8 @@
 const {resExport} = require("../../enums/resExport");
 const AdminService = require("../../services/admin/AdminService")
 const ManageUserService = require("../../services/admin/ManageUserService")
+const ManageTicketService = require("../../services/admin/ManageTicketService")
+const ManageBusService = require("../../services/admin/ManageBusService")
 class AdminController {
     async getRole (req, res){
         try{
@@ -132,6 +134,25 @@ class AdminController {
     async deleteUserByAdmin(req, res){
         try{
             const resData = await ManageUserService.deleteUser(req.params.id);
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async getTicketByAdmin(req, res){
+        try{
+            const resData = await ManageTicketService.getAllTicketByAdmin();
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+
+    async getAllBusByAdmin(req, res){
+        try{
+            const resData = await ManageBusService.getAllBus();
             resExport(200, "Thành công", resData, res);
         }catch (e) {
             resExport(500, e.message, null, res);
