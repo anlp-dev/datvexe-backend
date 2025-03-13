@@ -11,6 +11,7 @@ const BookingController = require("../../controllers/booking/BookingController")
 router.get("/user/:id", BookingController.getByUser);
 router.get("/:id", BookingController.getById);
 router.get("/history/user/:id", BookingController.getHistoryByUserId);
+router.get("/discount/user", BookingController.getDiscountByUser)
 
 
 module.exports = router;

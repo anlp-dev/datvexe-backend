@@ -134,4 +134,19 @@ router.get("/rolePermission", AdminController.getRolePermission);
  */
 router.put("/rolePermission", AdminController.updateRolePermission);
 
+// manage discount
+router
+    .get("/discount", AdminController.getDiscount)
+    .post("/discount", AdminController.createDiscount)
+    .put("/discount", AdminController.updateDiscount)
+    .delete("/discount/:id", AdminController.deleteDiscount);
+// manage user
+router
+    .get("/users", AdminController.getUserByAdmin)
+    .post("/users", AdminController.addUserByAdmin)
+    .put("/users", AdminController.updateUserByAdmin)
+    .delete("/users/:id", AdminController.deleteUserByAdmin)
+
+
+
 module.exports = router;

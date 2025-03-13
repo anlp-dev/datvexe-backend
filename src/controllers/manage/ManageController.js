@@ -1,5 +1,6 @@
 const {resExport} = require("../../enums/resExport");
 const manageService = require("../../services/manage/ManageService");
+const MESSAGE = require("../../enums/statusMsg");
 class ManageController{
     async getScheduleByManage(req, res){
         try{
@@ -7,6 +8,24 @@ class ManageController{
             resExport(200, "Thành công", resData, res);
         }catch (e) {
             resExport(500, e.message, null, res)
+        }
+    }
+
+    async getScheduleByAdmin(req, res){
+        try{
+            const resData = await manageService.getAllScheduleByAdmin();
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res)
+        }
+    }
+
+    async generate(req, res){
+        try{
+            const resData = await manageService.generateTrip(req.body);
+            resExport(MESSAGE.SUCCESS.status, MESSAGE.SUCCESS.msg, resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
         }
     }
 }

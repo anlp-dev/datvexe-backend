@@ -27,6 +27,15 @@ class BookingController {
             resExport(500, e.message, null, res);
         }
     }
+
+    async getDiscountByUser(req, res){
+        try{
+            const resData = await BookingService.getDiscount();
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
 }
 
 module.exports = new BookingController();
