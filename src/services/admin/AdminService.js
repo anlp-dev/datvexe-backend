@@ -1,6 +1,7 @@
 const Role = require("../../models/user/Role")
 const RolePermission = require("../../models/user/RolePermission")
 const Permission = require("../../models/user/Permission")
+const Discount = require("../../models/booking/Discount")
 class AdminService {
     async getAllRole(){
         try{
@@ -105,6 +106,83 @@ class AdminService {
             throw new Error(e);
         }
     }
+
+    async getAllDiscount(){
+        try{
+            const resDiscount = await Discount.find({});
+            if(!resDiscount) throw new Error("Lỗi khi lấy thông tin giảm giá !");
+            return resDiscount;
+        }catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async addNewDisCount(dataReq){
+        try{
+            const {title, code, description, percent, quantity, status} = dataReq;
+            if(!title || !code || !percent || !quantity || !status){
+                throw new Error("Thông tin không hợp lệ !");
+            }
+            if(percent < 0 || percent > 100){
+                throw new Error("Phần trăm giảm giá không hợp lệ !");
+            }
+            if(quantity < 0){
+                throw new Error("Số lượng không hợp lệ !");
+            }
+            const discountCheck = await Discount.findOne({code: code});
+            if(discountCheck){
+                throw new Error("Mã giảm giá đã tồn tại !");
+            }
+            const newDiscount = new Discount({title, code, description, percent, quantity, status});
+            await newDiscount.save();
+            return newDiscount;
+        }catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async updateDiscount(dataReq) {
+        try{
+            const {id, percent, quantity, status} = dataReq;
+            if(!id || !percent || !quantity || !status){
+                throw new Error("Thông tin không hợp lệ !");
+            }
+            if(percent < 0 || percent > 100){
+                throw new Error("Phần trăm giảm giá không hợp lệ !");
+            }
+            if(quantity < 0){
+                throw new Error("Số lượng không hợp lệ !");
+            }
+            if(status !== "00" && status !== "01"){
+                throw new Error("Trạng thái không hợp lệ !");
+            }
+            const discount = await Discount.findById(id);
+            discount.percent = percent;
+            discount.quantity = quantity;
+            discount.status = status;
+            discount.updatedAt = Date.now()
+            await discount.save();
+            return discount.save();
+        }catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async deleteDiscount(id) {
+        try{
+            const discount = await Discount.findById(id);
+            if(!discount){
+                throw new Error("Không tìm thấy thông tin giảm giá !");
+            }
+            discount.status = "00";
+            discount.updatedAt = Date.now();
+            await discount.save();
+        }catch (e) {
+            throw new Error(e);
+        }
+    }
+
+
 
 }
 

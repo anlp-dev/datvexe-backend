@@ -47,6 +47,7 @@ class authService {
       if (!token) {
         throw new Error("Lỗi khi tạo token!");
       }
+      await this.updateLastLogin(user._id);
       return token;
     } catch (e) {
       throw new Error(e.message);
@@ -62,6 +63,17 @@ class authService {
         return user;
       }
     } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  async updateLastLogin(id){
+    try{
+      const dataUser = await User.findByIdAndUpdate(id, {lastLogin: Date.now()});
+      if (!dataUser) {
+        throw new Error("User not found");
+      }
+    }catch (e) {
       throw new Error(e);
     }
   }

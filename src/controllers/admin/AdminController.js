@@ -1,6 +1,6 @@
 const {resExport} = require("../../enums/resExport");
 const AdminService = require("../../services/admin/AdminService")
-
+const ManageUserService = require("../../services/admin/ManageUserService")
 class AdminController {
     async getRole (req, res){
         try{
@@ -60,6 +60,79 @@ class AdminController {
         try{
             const resData = await AdminService.createPermission(req.body);
             resExport(200, "Thành công", resData, res)
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+
+    async getDiscount(req, res){
+        try{
+            const resData = await AdminService.getAllDiscount();
+            resExport(200, "Thành công", resData, res)
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async createDiscount(req, res){
+        try{
+            const resData = await AdminService.addNewDisCount(req.body);
+            resExport(200, "Thành công", resData, res)
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async updateDiscount(req, res){
+        try{
+            const resData = await AdminService.updateDiscount(req.body);
+            resExport(200, "Thành công", resData, res)
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async deleteDiscount(req, res){
+        try{
+            const resData = await AdminService.deleteDiscount(req.params.id);
+            resExport(200, "Thành công", resData, res)
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async getUserByAdmin(req, res){
+        try{
+            const resData = await ManageUserService.getAllUser();
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res)
+        }
+    }
+
+    async addUserByAdmin(req, res){
+        try{
+            const resData = await ManageUserService.addNewUser(req.body);
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async updateUserByAdmin(req, res){
+        try{
+            const resData = await ManageUserService.updateUser(req.body);
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async deleteUserByAdmin(req, res){
+        try{
+            const resData = await ManageUserService.deleteUser(req.params.id);
+            resExport(200, "Thành công", resData, res);
         }catch (e) {
             resExport(500, e.message, null, res);
         }

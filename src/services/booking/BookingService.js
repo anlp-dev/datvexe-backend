@@ -4,6 +4,7 @@ const BusSchedule = require("../../models/trip/BuSchedule");
 const TypeBus = require("../../models/bus/TypeBus");
 const BusOperator = require("../../models/bus/BusOperators");
 const BusTrip = require("../../models/trip/BusTrip");
+const Discount = require("../../models/booking/Discount")
 class BookingService{
     async getByUserId(id) {
         try {
@@ -49,6 +50,16 @@ class BookingService{
 
             console.log(busTrip);
             return busTrip;
+        }catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async getDiscount(){
+        try{
+            const resDiscount = await Discount.find({status: "01", quantity: {$gt: 0}});
+            if(!resDiscount) throw new Error("Không tìm thấy mã giảm giá !")
+            return resDiscount;
         }catch (e) {
             throw new Error(e);
         }

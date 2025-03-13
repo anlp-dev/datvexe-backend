@@ -14,7 +14,7 @@ router.get("/schedule/:id", TripController.getScheduleById)
 router.post("/schedule", TripController.loadSchedule);
 router.post("/create", TripController.createTrip);
 router.post("/cancel", TripController.cancelTrip);
-router.post("/generate", checkPermission("CRUD_BUS_SCHEDULE"), TripController.generate);
+
 
 
 module.exports = router;

@@ -48,14 +48,7 @@ class TripController{
         }
     }
 
-    async generate(req, res){
-        try{
-            const resData = await TripService.generateTrip(req.body);
-            resExport(MESSAGE.SUCCESS.status, MESSAGE.SUCCESS.msg, resData, res);
-        }catch (e) {
-            resExport(500, e.message, null, res);
-        }
-    }
+
 }
 
 module.exports = new TripController();
