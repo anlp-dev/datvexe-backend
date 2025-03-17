@@ -103,7 +103,7 @@ class ManageUserService {
         try{
             const dataUser = await User.findById(id);
             if(!dataUser){
-                throw new Error("Không tìm thấy người dùng !");
+                throw new Error("Không tìm thấy người dùng !")
             }
             dataUser.status = "00";
             await dataUser.save();

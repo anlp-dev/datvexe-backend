@@ -59,7 +59,16 @@ class BookingService{
         try{
             const resDiscount = await Discount.find({status: "01", quantity: {$gt: 0}});
             if(!resDiscount) throw new Error("Không tìm thấy mã giảm giá !")
-            return resDiscount;
+            let responseData = [];
+            resDiscount.forEach(item => {
+                responseData.push({
+                    id: item._id,
+                    code: item.code,
+                    discount: item.percent,
+                    description: item.description
+                })
+            })
+            return responseData;
         }catch (e) {
             throw new Error(e);
         }

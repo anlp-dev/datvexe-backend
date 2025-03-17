@@ -4,6 +4,8 @@ const TypeBus = require("../../models/bus/TypeBus");
 const BusOperator = require("../../models/bus/BusOperators");
 const BusTrip = require("../../models/trip/BusTrip");
 const TYPE_THONG_BAO = require("../../enums/typeThongBao");
+const User = require("../../models/user/User")
+const Notifice = require("../../models/system/Notifice");
 class ManageService{
     async getAllSchedule(){
         try{
@@ -41,6 +43,84 @@ class ManageService{
                 .populate("benXeKhoiHanh")
                 .populate("benXeDichDen");
             if(!busSchedule) throw new Error("Không tìm thấy lịch trình !");
+            return busSchedule;
+        }catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async updateStatusBusSchedule(dataReq) {
+        try{
+            const {id, status}  = dataReq;
+            console.log(dataReq)
+            const busSchedule = await BusSchedule.findById(id);
+            if(!busSchedule){
+                throw new Error("Vé không tồn tại !");
+            }
+            busSchedule.status = status;
+            await busSchedule.save();
+
+            if(status === "arrived"){
+                await BusTrip.updateMany(
+                    { busSchedule: busSchedule._id },
+                    { $set: { status: "completed" } }
+                );
+
+                const users = await BusTrip.distinct("user", { busSchedule: busSchedule._id });
+
+                const updatePoint = 20000;
+
+                await User.updateMany(
+                    {_id: { $in: users}},
+                    { $inc: {loyaltyPoints: updatePoint }}
+                )
+
+                const notifications = users.map(userId => ({
+                    type: "points",
+                    title: "Cộng điểm",
+                    message: `Cộng ${updatePoint} điểm vì bạn đã hoàn thành chuyến đi ${busSchedule.route}`,
+                    tab: "promotions",
+                    user: userId
+                }));
+
+                await Notifice.insertMany(notifications)
+            }else if(status === "departed"){
+                await BusTrip.updateMany(
+                    { busSchedule: busSchedule._id },
+                    { $set: { status: "confirmed" } }
+                );
+            }
+            return busSchedule;
+        }catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async cancelBusScheduleByAdmin(id) {
+        try{
+            const busSchedule = await BusSchedule.findById(id);
+            if(!busSchedule){
+                throw new Error("Vé không tồn tại !");
+            }
+            busSchedule.status = "cancelled";
+            await busSchedule.save();
+            await BusTrip.updateMany({
+                busSchedule: busSchedule._id
+            }, {
+                $set: {status: "cancelled"}
+            })
+
+            const user = await BusTrip.distinct("user", { busSchedule: busSchedule._id });
+
+            const notifications = user.map(userId => ({
+                type: "points",
+                title: "Cộng điểm",
+                message: `Vé trên chuyến xe ${busSchedule.route} đã bị hủy do thời tiết xấu`,
+                tab: "promotions",
+                user: userId
+            }))
+
+            await Notifice.insertMany(notifications);
             return busSchedule;
         }catch (e) {
             throw new Error(e);

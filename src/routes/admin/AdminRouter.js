@@ -153,5 +153,14 @@ router.get("/ticket", AdminController.getTicketByAdmin)
 router
     .get("/bus", AdminController.getAllBusByAdmin);
 
+// manage payment
+router
+    .get("/payment", AdminController.getAllPaymentByAdmin)
+    .post("/payment/download-pdf", AdminController.exportPdfPayment);
+
+// manage report
+router
+    .get("/reports", AdminController.getReport);
+
 
 module.exports = router;

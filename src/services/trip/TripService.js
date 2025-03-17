@@ -6,6 +6,8 @@ const BusOperator = require("../../models/bus/BusOperators");
 const BusTrip = require("../../models/trip/BusTrip");
 const Notifice = require("../../models/system/Notifice");
 const TYPE_THONG_BAO = require("../../enums/typeThongBao");
+const User = require("../../models/user/User");
+const Discount = require("../../models/booking/Discount")
 const generateTicketCode = require("../../utils/generate");
 
 class TripService {
@@ -47,8 +49,8 @@ class TripService {
             if(benXeKhoiHanh === benXeDichDen){
                 throw new Error("Địa điểm không hợp lệ, vui lòng thử lại !");
             }
-
-            if(date < Date.now()){
+            const departureDate = new Date(date).getTime();
+            if(departureDate < Date.now()){
                 throw new Error("Ngày khởi hành không hợp lệ, vui lòng thử lại !");
             }
             const stationStart = await BusStation.findOne({maBenXe: benXeKhoiHanh});
@@ -83,7 +85,7 @@ class TripService {
         try{
             const {user, busSchedule, totalPrice,
                 seats, pickupLocation, dropoffLocation, departureTime,
-                exportInvoice, note, paymentMethod} = dataReq;
+                exportInvoice, note, paymentMethod, usePoint, selectPromotion} = dataReq;
 
             const checkBusSchedule = await BusSchedule.findById(busSchedule);
             if(!checkBusSchedule){
@@ -109,6 +111,14 @@ class TripService {
                 paymentMethod: paymentMethod,
             })
             await newTrip.save();
+
+            if(usePoint > 0){
+                await User.findByIdAndUpdate(user, {$inc: {loyaltyPoints: -usePoint}});
+            }
+
+            if(selectPromotion){
+                await Discount.findByIdAndUpdate(selectPromotion, {$inc: {quantity: -1}});
+            }
 
            const newNotifice = new Notifice({
                 type: TYPE_THONG_BAO.SUCCESS,
