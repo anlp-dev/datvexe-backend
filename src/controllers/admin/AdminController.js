@@ -1,6 +1,10 @@
 const {resExport} = require("../../enums/resExport");
 const AdminService = require("../../services/admin/AdminService")
 const ManageUserService = require("../../services/admin/ManageUserService")
+const ManageTicketService = require("../../services/admin/ManageTicketService")
+const ManageBusService = require("../../services/admin/ManageBusService")
+const ManagePaymentService = require("../../services/admin/ManagePaymentService")
+const ManageReportService = require("../../services/admin/ManageReportService")
 class AdminController {
     async getRole (req, res){
         try{
@@ -132,6 +136,53 @@ class AdminController {
     async deleteUserByAdmin(req, res){
         try{
             const resData = await ManageUserService.deleteUser(req.params.id);
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async getTicketByAdmin(req, res){
+        try{
+            const resData = await ManageTicketService.getAllTicketByAdmin();
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+
+    async getAllBusByAdmin(req, res){
+        try{
+            const resData = await ManageBusService.getAllBus();
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async getAllPaymentByAdmin(req, res){
+        try{
+            const resData = await ManagePaymentService.getAllPayment();
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+    async exportPdfPayment(req, res){
+        try{
+            const pdfPath = await ManagePaymentService.exportPdf(req.body);
+            res.download(pdfPath, 'receipt.pdf')
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
+
+    async getReport(req, res){
+        try{
+            const resData = await ManageReportService.getDoanhThu(req.query.year)
             resExport(200, "Thành công", resData, res);
         }catch (e) {
             resExport(500, e.message, null, res);

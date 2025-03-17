@@ -20,6 +20,24 @@ class ManageController{
         }
     }
 
+    async updateScheduleStatusByAdminAndManage(req, res){
+        try{
+            const resData = await manageService.updateStatusBusSchedule(req.body);
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res)
+        }
+    }
+
+    async cancelScheduleByAdminAndManage(req, res){
+        try{
+            const resData = await manageService.cancelBusScheduleByAdmin(req.params.id);
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res)
+        }
+    }
+
     async generate(req, res){
         try{
             const resData = await manageService.generateTrip(req.body);

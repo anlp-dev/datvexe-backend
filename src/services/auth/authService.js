@@ -43,7 +43,7 @@ class authService {
       const { username, password } = data;
       // Tìm user theo username
       const user = await User.findOne({ username }).populate("roleId", "code");
-      const token = this.generateToken(user._id, user.roleId.code);
+      const token = this.generateToken(user._id, user.roleId.code, user.fullname);
       if (!token) {
         throw new Error("Lỗi khi tạo token!");
       }
@@ -78,8 +78,8 @@ class authService {
     }
   }
 
-  generateToken(userId, role) {
-    const token = jwt.sign({ userId, role }, secret.JWT_SECRET_KEY, {
+  generateToken(userId, role, fullname) {
+    const token = jwt.sign({ userId, role, fullname }, secret.JWT_SECRET_KEY, {
       expiresIn: "30m",
     });
     return token;
