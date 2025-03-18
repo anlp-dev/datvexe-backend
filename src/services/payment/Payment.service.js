@@ -3,8 +3,8 @@ const crypto = require("crypto");
 const QRCode = require("qrcode");
 const crc = require("crc");
 const axios = require("axios");
-const Transaction = require("../../models/booking/Transaction");
-const BusTrip = require("../../models/trip/BusTrip");
+const Transaction = require("../../models/booking/Transaction.model");
+const BusTrip = require("../../models/trip/BusTrip.model");
 
 class PaymentService {
     constructor() {

@@ -1,5 +1,5 @@
 const {resExport} = require("../../enums/resExport");
-const SystemService = require("../../services/system/SystemService");
+const SystemService = require("../../services/system/System.service");
 class SystemController {
     async getAllLogRequest(req, res){
         try{

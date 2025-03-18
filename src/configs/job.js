@@ -1,8 +1,8 @@
 const cron = require("node-cron");
 const mongoose = require("mongoose");
-const BusOperator = require("../models/bus/BusOperators");
-const BusSchedule = require("../models/trip/BuSchedule");
-const JobStatus = require("../models/system/JobStatus");
+const BusOperator = require("../models/bus/BusOperators.model");
+const BusSchedule = require("../models/trip/BuSchedule.model");
+const JobStatus = require("../models/system/JobStatus.model");
 
 // Kết nối MongoDB
 mongoose.connect("mongodb://127.0.0.1:27017/booking-car-db", {

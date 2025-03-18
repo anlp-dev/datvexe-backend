@@ -1,5 +1,5 @@
 const {resExport} = require("../../enums/resExport");
-const PaymentService = require("../../services/payment/PaymentService");
+const PaymentService = require("../../services/payment/Payment.service");
 class PaymentController{
     createPayment(req, res){
         try{

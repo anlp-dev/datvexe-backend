@@ -1,7 +1,7 @@
-const Role = require("../../models/user/Role")
-const RolePermission = require("../../models/user/RolePermission")
-const Permission = require("../../models/user/Permission")
-const Discount = require("../../models/booking/Discount")
+const Role = require("../../models/user/Role.model")
+const RolePermission = require("../../models/user/RolePermission.model")
+const Permission = require("../../models/user/Permission.model")
+const Discount = require("../../models/booking/Discount.model")
 class AdminService {
     async getAllRole(){
         try{

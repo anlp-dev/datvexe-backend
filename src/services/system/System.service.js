@@ -1,4 +1,4 @@
-const LogRequest = require('../../models/system/LogRequest');
+const LogRequest = require('../../models/system/LogRequest.model');
 class SystemService {
     async getLogRequest(){
         try{

@@ -1,10 +1,10 @@
 const {resExport} = require("../../enums/resExport");
-const AdminService = require("../../services/admin/AdminService")
-const ManageUserService = require("../../services/admin/ManageUserService")
-const ManageTicketService = require("../../services/admin/ManageTicketService")
-const ManageBusService = require("../../services/admin/ManageBusService")
-const ManagePaymentService = require("../../services/admin/ManagePaymentService")
-const ManageReportService = require("../../services/admin/ManageReportService")
+const AdminService = require("../../services/admin/Admin.service")
+const ManageUserService = require("../../services/admin/ManageUser.service")
+const ManageTicketService = require("../../services/admin/ManageTicket.service")
+const ManageBusService = require("../../services/admin/ManageBus.service")
+const ManagePaymentService = require("../../services/admin/ManagePayment.service")
+const ManageReportService = require("../../services/admin/ManageReport.service")
 class AdminController {
     async getRole (req, res){
         try{

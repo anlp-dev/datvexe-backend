@@ -1,10 +1,10 @@
-const LocationTrip = require("../../models/trip/LocationTrip");
-const BusStation = require("../../models/trip/BusStation");
-const BusSchedule = require("../../models/trip/BuSchedule");
-const TypeBus = require("../../models/bus/TypeBus");
-const BusOperator = require("../../models/bus/BusOperators");
-const BusTrip = require("../../models/trip/BusTrip");
-const Discount = require("../../models/booking/Discount")
+const LocationTrip = require("../../models/trip/LocationTrip.model");
+const BusStation = require("../../models/trip/BusStation.model");
+const BusSchedule = require("../../models/trip/BuSchedule.model");
+const TypeBus = require("../../models/bus/TypeBus.model");
+const BusOperator = require("../../models/bus/BusOperators.model");
+const BusTrip = require("../../models/trip/BusTrip.model");
+const Discount = require("../../models/booking/Discount.model")
 class BookingService{
     async getByUserId(id) {
         try {

@@ -1,5 +1,5 @@
-const BusOperator = require("../../models/bus/BusOperators");
-const TypeBus = require("../../models/bus/TypeBus");
+const BusOperator = require("../../models/bus/BusOperators.model");
+const TypeBus = require("../../models/bus/TypeBus.model");
 
 class ManageBusService {
     async getAllBus() {

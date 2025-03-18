@@ -1,13 +1,13 @@
-const LocationTrip = require("../../models/trip/LocationTrip");
-const BusStation = require("../../models/trip/BusStation");
-const BusSchedule = require("../../models/trip/BuSchedule");
-const TypeBus = require("../../models/bus/TypeBus");
-const BusOperator = require("../../models/bus/BusOperators");
-const BusTrip = require("../../models/trip/BusTrip");
-const Notifice = require("../../models/system/Notifice");
+const LocationTrip = require("../../models/trip/LocationTrip.model");
+const BusStation = require("../../models/trip/BusStation.model");
+const BusSchedule = require("../../models/trip/BuSchedule.model");
+const TypeBus = require("../../models/bus/TypeBus.model");
+const BusOperator = require("../../models/bus/BusOperators.model");
+const BusTrip = require("../../models/trip/BusTrip.model");
+const Notifice = require("../../models/system/Notifice.model");
 const TYPE_THONG_BAO = require("../../enums/typeThongBao");
-const User = require("../../models/user/User");
-const Discount = require("../../models/booking/Discount")
+const User = require("../../models/user/User.model");
+const Discount = require("../../models/booking/Discount.model")
 const generateTicketCode = require("../../utils/generate");
 
 class TripService {
