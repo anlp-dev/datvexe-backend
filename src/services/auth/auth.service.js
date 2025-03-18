@@ -1,12 +1,12 @@
-const User = require("../../models/user/User");
+const User = require("../../models/user/User.model");
 const { v4: uuidv4 } = require("uuid");
 const secret = require("../../configs/Secrets");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const STATUS_ACCOUNT = require("../../enums/statusAccount");
 const ROLE = require("../../enums/role");
-const Role = require("../../models/user/Role");
-const emailService = require("./EmailService");
+const Role = require("../../models/user/Role.model");
+const emailService = require("./Email.service");
 
 class authService {
   async createUser(data) {

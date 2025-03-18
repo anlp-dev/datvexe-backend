@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { inputValidationAccount, inputValidationLogin } = require("../../middleware/InputValidation");
-const authContoller = require("../../controllers/auth/authController");
+const authContoller = require("../../controllers/auth/auth.controller");
 
 /**
  * @swagger

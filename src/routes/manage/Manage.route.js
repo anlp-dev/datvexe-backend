@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const manageController = require("../../controllers/manage/ManageController");
+const manageController = require("../../controllers/manage/Manage.controller");
 const {checkPermission} = require("../../middleware/AuthPermission");
 
 router.get("/busSchedule", manageController.getScheduleByManage);

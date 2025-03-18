@@ -1,5 +1,5 @@
 const {resExport} = require("../../enums/resExport");
-const authService = require("../../services/auth/authService");
+const authService = require("../../services/auth/auth.service");
 
 class authController {
     async register(req, res){

@@ -1,4 +1,4 @@
-const BusTrip = require("../../models/trip/BusTrip")
+const BusTrip = require("../../models/trip/BusTrip.model")
 
 class ManageReportService {
     async getDoanhThu(yearReq){

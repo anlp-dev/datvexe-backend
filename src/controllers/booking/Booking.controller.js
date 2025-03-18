@@ -1,5 +1,5 @@
 const {resExport} = require("../../enums/resExport");
-const BookingService = require("../../services/booking/BookingService")
+const BookingService = require("../../services/booking/Booking.service")
 class BookingController {
     async getByUser(req, res){
         try{

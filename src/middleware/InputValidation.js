@@ -1,4 +1,4 @@
-const User = require("../models/user/User");
+const User = require("../models/user/User.model");
 const bcrypt = require("bcryptjs");
 const STATUS_ACCOUNT = require("../enums/statusAccount");
 const inputValidationAccount = async (req, res, next) => {

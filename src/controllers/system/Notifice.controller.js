@@ -1,5 +1,5 @@
 const {resExport} = require("../../enums/resExport");
-const notificeService = require("../../services/system/NotificeService");
+const notificeService = require("../../services/system/Notifice.service");
 class NotificeController {
     async getNotifice(req, res){
         try{

@@ -1,5 +1,5 @@
 const {resExport} = require("../../enums/resExport");
-const manageService = require("../../services/manage/ManageService");
+const manageService = require("../../services/manage/Manage.service");
 const MESSAGE = require("../../enums/statusMsg");
 class ManageController{
     async getScheduleByManage(req, res){

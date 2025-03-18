@@ -1,4 +1,4 @@
-const Notifice = require("../../models/system/Notifice");
+const Notifice = require("../../models/system/Notifice.model");
 
 class NotificeService {
     async getNotificeById(dataReq){

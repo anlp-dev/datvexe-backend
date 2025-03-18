@@ -1,4 +1,4 @@
-const TripService = require('../../services/trip/TripService');
+const TripService = require('../../services/trip/Trip.service');
 const {resExport} = require("../../enums/resExport");
 const MESSAGE = require("../../enums/statusMsg");
 

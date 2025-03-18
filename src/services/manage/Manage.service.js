@@ -1,11 +1,11 @@
-const BusStation = require("../../models/trip/BusStation");
-const BusSchedule = require("../../models/trip/BuSchedule");
-const TypeBus = require("../../models/bus/TypeBus");
-const BusOperator = require("../../models/bus/BusOperators");
-const BusTrip = require("../../models/trip/BusTrip");
+const BusStation = require("../../models/trip/BusStation.model");
+const BusSchedule = require("../../models/trip/BuSchedule.model");
+const TypeBus = require("../../models/bus/TypeBus.model");
+const BusOperator = require("../../models/bus/BusOperators.model");
+const BusTrip = require("../../models/trip/BusTrip.model");
 const TYPE_THONG_BAO = require("../../enums/typeThongBao");
-const User = require("../../models/user/User")
-const Notifice = require("../../models/system/Notifice");
+const User = require("../../models/user/User.model")
+const Notifice = require("../../models/system/Notifice.model");
 class ManageService{
     async getAllSchedule(){
         try{

@@ -1,6 +1,6 @@
-const BusTrip = require("../../models/trip/BusTrip");
-const User = require("../../models/user/User")
-const BusSchedule = require("../../models/trip/BuSchedule")
+const BusTrip = require("../../models/trip/BusTrip.model");
+const User = require("../../models/user/User.model")
+const BusSchedule = require("../../models/trip/BuSchedule.model")
 
 class ManageTicketService {
     async getAllTicketByAdmin(){

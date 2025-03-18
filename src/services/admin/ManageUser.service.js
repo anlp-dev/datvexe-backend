@@ -1,5 +1,5 @@
-const User = require("../../models/user/User");
-const Role = require("../../models/user/Role")
+const User = require("../../models/user/User.model");
+const Role = require("../../models/user/Role.model")
 const bcrypt = require("bcryptjs");
 class ManageUserService {
     async getAllUser(){
