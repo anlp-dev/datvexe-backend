@@ -4,6 +4,7 @@ const cors = require('cors');
 const logRequest = require('../src/middleware/LogRequestMiddleware');
 const passport = require('passport');
 const app = express();
+const server = require('http').createServer(app);
 
 // Middleware xử lý dữ liệu request
 app.use(express.json());
@@ -26,6 +27,9 @@ configViewEngine(app);
 const security = require('../src/configs/Security');
 security(app);
 
+const initSocket = require("../src/configs/socket");
+initSocket(server)
+
 const setupSwagger = require('../src/swagger/swagger');
 setupSwagger(app);
 
@@ -34,4 +38,4 @@ const router = require('../src/routes/MainRouter');
 app.use(router);
 
 const { startServer } = require('../src/configs/PortCustom');
-startServer(app);
+startServer(server);

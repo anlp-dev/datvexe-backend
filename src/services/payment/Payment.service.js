@@ -8,8 +8,8 @@ const BusTrip = require("../../models/trip/BusTrip.model");
 
 class PaymentService {
     constructor() {
-        this.vnpTmnCode = "PM4KZ9GU";
-        this.vnpHashSecret = "E2VAY4DNJTQ7544ENWZA1GNKMFULXKG1";
+        this.vnpTmnCode = "3QZ68MJL";
+        this.vnpHashSecret = "F3OUCJMKUYFDA1MDYZGUN6B9FHIIIX5U";
         this.vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     }
 
