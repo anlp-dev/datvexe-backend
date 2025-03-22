@@ -30,7 +30,7 @@ class authService {
       const emailSent = await emailService.sendEmailActiveUser({
         to: email,
         subject: "[no-reply]Xác nhận tài khoản của bạn",
-        text: `http://localhost:9999/auth/email/verify/${newUserData._id}`,
+        text: `https://api.datvexe-manage.id.vn/auth/email/verify/${newUserData._id}`,
       });
       return newUserData;
     } catch (e) {
