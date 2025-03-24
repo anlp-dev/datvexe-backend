@@ -42,7 +42,7 @@ class EmailService {
                     <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;">
                       <!-- Header with logo -->
                       <div style="background-color: #FF8C00; padding: 30px 0; text-align: center;">
-                        <h1 style="color: white; margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 1px;">BookingCar</h1>
+                        <h1 style="color: white; margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 1px;">BookingCar - Sao Việt</h1>
                         <div style="background-color: white; width: 60px; height: 4px; margin: 15px auto;"></div>
                         <p style="color: white; margin: 0; font-size: 18px;">Xác Nhận Tài Khoản</p>
                       </div>
@@ -51,7 +51,7 @@ class EmailService {
                       <div style="padding: 40px 30px; color: #444444;">
                         <h2 style="color: #FF8C00; margin-top: 0; font-size: 24px; border-bottom: 2px solid #FFE0B2; padding-bottom: 10px;">Chào Mừng Bạn!</h2>
                         
-                        <p style="font-size: 16px; line-height: 1.6;">Cảm ơn bạn đã đăng ký tài khoản tại <strong style="color: #FF8C00;">BookingCar</strong>. Chúng tôi rất vui mừng được chào đón bạn!</p>
+                        <p style="font-size: 16px; line-height: 1.6;">Cảm ơn bạn đã đăng ký tài khoản tại <strong style="color: #FF8C00;">BookingCar - Sao Việt</strong>. Chúng tôi rất vui mừng được chào đón bạn!</p>
                         
                         <p style="font-size: 16px; line-height: 1.6;">Để hoàn tất quá trình đăng ký và kích hoạt tài khoản của bạn, vui lòng nhấp vào nút bên dưới:</p>
                         
@@ -77,7 +77,7 @@ class EmailService {
                       
                       <!-- Footer -->
                       <div style="background-color: #333333; color: white; padding: 20px; text-align: center;">
-                        <p style="margin: 0 0 10px 0; font-size: 14px;">© ${new Date().getFullYear()} BookingCar. Tất cả các quyền được bảo lưu.</p>
+                        <p style="margin: 0 0 10px 0; font-size: 14px;">© ${new Date().getFullYear()} BookingCar - Sao Việt. Tất cả các quyền được bảo lưu.</p>
                         <div style="margin: 15px 0;">
                           <a href="#" style="display: inline-block; margin: 0 10px; color: white; text-decoration: none; font-size: 13px;">Điều khoản sử dụng</a>
                           <a href="#" style="display: inline-block; margin: 0 10px; color: white; text-decoration: none; font-size: 13px;">Chính sách bảo mật</a>

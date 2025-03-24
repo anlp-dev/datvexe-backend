@@ -48,6 +48,15 @@ class authController {
             resExport(500, e.message, null, res);
         }
     }
+
+    async changePassworldUser(req, res){
+        try{
+            const res_data = await authService.changePassword(req.account.userId, req.body);
+            resExport(200, "Thành công", res_data, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
 }
 
 module.exports = new authController();

@@ -5,6 +5,8 @@ const ManageTicketService = require("../../services/admin/ManageTicket.service")
 const ManageBusService = require("../../services/admin/ManageBus.service")
 const ManagePaymentService = require("../../services/admin/ManagePayment.service")
 const ManageReportService = require("../../services/admin/ManageReport.service")
+const puppeteer = require("puppeteer");
+const {getTemplateReportInvoicePdf} = require("../../utils/reportTemplate");
 class AdminController {
     async getRole (req, res){
         try{
@@ -172,8 +174,26 @@ class AdminController {
 
     async exportPdfPayment(req, res){
         try{
-            const pdfPath = await ManagePaymentService.exportPdf(req.body);
-            res.download(pdfPath, 'receipt.pdf')
+            try {
+                const { datePay, bookingCode, customerName, route, paymentMethod, status, totalPrice } = req.body;
+
+                const browser = await puppeteer.launch({ args: ["--no-sandbox", "--disable-setuid-sandbox"] });
+                const page = await browser.newPage();
+
+                const htmlContent = getTemplateReportInvoicePdf(datePay, bookingCode, customerName, route, paymentMethod, status, totalPrice);
+                await page.setContent(htmlContent);
+
+                const pdfBuffer = await page.pdf({ format: "A4" });
+
+                await browser.close();
+
+                res.setHeader("Content-Type", "application/pdf");
+                res.setHeader("Content-Disposition", `attachment; filename=hoa_don_${bookingCode}.pdf`);
+                res.end(Buffer.from(pdfBuffer));
+            } catch (e) {
+                console.error("Lỗi tạo PDF:", e);
+                res.status(500).send("Lỗi khi tạo file PDF");
+            }
         }catch (e) {
             resExport(500, e.message, null, res);
         }

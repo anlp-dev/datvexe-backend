@@ -104,8 +104,9 @@ class authService {
 
   async updateProfileUserById(id, data){
     try{
+      console.log(data)
       const {fullname, email, phone, address, dateOfBirth} = data;
-      if(!fullname || !email || !phone || !address || !dateOfBirth){
+      if(!fullname || !email || !phone){
         throw new Error("Thieu thong tin");
       }
       const dataUser = await User.findById(id);
@@ -117,6 +118,23 @@ class authService {
       dataUser.phone = phone;
       dataUser.address = address;
       dataUser.dateOfBirth = dateOfBirth;
+      await dataUser.save();
+      return dataUser;
+    }catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  async changePassword(id, dataReq){
+    try{
+      const {currentPassword, newPassword} = dataReq;
+      const dataUser = await User.findById(id);
+      const checkCurrentPass = await bcrypt.compare(currentPassword, dataUser.password);
+      if(!checkCurrentPass){
+        throw new Error("Mật khẩu không đúng, vui lòng thử lại!");
+      }
+      const hashPassword = await bcrypt.hash(newPassword, 10);
+      dataUser.password = hashPassword;
       await dataUser.save();
       return dataUser;
     }catch (e) {

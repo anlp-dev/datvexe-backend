@@ -77,4 +77,6 @@ router.get("/email/verify/:id", authContoller.updateStatusUser);
 
 router.put("/profile/:id", authContoller.updateProfileUser);
 
+router.post("/changePassword/user", authContoller.changePassworldUser);
+
 module.exports = router;
