@@ -14,6 +14,7 @@ class BookingService{
             })
                 .populate("busSchedule")
                 .populate("user", "fullname email phone")
+                .sort({ createdAt: -1 }) // Sắp xếp theo createdAt giảm dần
                 .lean();
 
             if (busTrip.length < 1) throw new Error("Không tìm thấy lịch trình!");
@@ -24,6 +25,7 @@ class BookingService{
             throw new Error(e.message);
         }
     }
+
 
 
     async getByBookingId(id){
@@ -41,9 +43,10 @@ class BookingService{
         try{
             const busTrip = await BusTrip.find({
                 user: id,
-                status: { $in: ["cancelled", "confirmed"] }
+                status: { $in: ["cancelled", "completed"] }
             })
                 .populate("busSchedule")
+                .sort({createdAt: -1})
                 .lean();
 
             if (busTrip.length < 1) throw new Error("Không tìm thấy lịch trình!");

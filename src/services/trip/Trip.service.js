@@ -68,8 +68,12 @@ class TripService {
                 .populate("benXeKhoiHanh")
                 .populate("benXeDichDen");
             const filterBusSchedule = busSchedule.filter((item) => {
-                return new Date(item.date).toISOString().split("T")[0] === new Date(date).toISOString().split("T")[0];
+                const itemDate = new Date(item.date); // Chuyển thành đối tượng Date nếu chưa phải
+                itemDate.setHours(itemDate.getHours() + 7); // Cộng thêm 7 giờ
+
+                return itemDate.toISOString().split("T")[0] === new Date(date).toISOString().split("T")[0];
             });
+
 
             if(filterBusSchedule.length < 1){
                 throw new Error("Không tìm thấy chuyến xe phù hợp với lựa chọn của bạn!");

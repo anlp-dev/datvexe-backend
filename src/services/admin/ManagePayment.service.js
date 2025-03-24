@@ -31,26 +31,23 @@ class ManagePaymentService {
     }
 
     async exportPdf(dataReq){
-        try{
-            const {fileName, datePay, bookingCode, customerName, route, paymentMethod, status, totalPrice} = dataReq;
-            console.log(dataReq)
-            const browser = await puppeteer.launch();
+        try {
+            const { datePay, bookingCode, customerName, route, paymentMethod, status, totalPrice } = dataReq;
+
+            const browser = await puppeteer.launch({
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            });
             const page = await browser.newPage();
 
-            const htmlContent = getTemplateReportInvoicePdf(datePay, bookingCode, customerName, route, paymentMethod, status, totalPrice)
-
+            const htmlContent = getTemplateReportInvoicePdf(datePay, bookingCode, customerName, route, paymentMethod, status, totalPrice);
             await page.setContent(htmlContent);
-            const downloadsPath = path.join(os.homedir(), 'Downloads', fileName);
 
-            await page.pdf({
-                path: downloadsPath,
-                format: 'A4',
-            });
+            const pdfBuffer = await page.pdf({ format: 'A4' });
 
             await browser.close();
 
-            return downloadsPath;
-        }catch (e) {
+            return pdfBuffer.toString("base64");
+        } catch (e) {
             throw new Error(e);
         }
     }

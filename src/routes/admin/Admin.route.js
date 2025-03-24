@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const AdminController = require("../../controllers/admin/Admin.controller");
+const {checkPermission} = require("../../middleware/AuthPermission");
 
 /**
  * @swagger

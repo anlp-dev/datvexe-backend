@@ -113,10 +113,10 @@ class ManageService{
             const user = await BusTrip.distinct("user", { busSchedule: busSchedule._id });
 
             const notifications = user.map(userId => ({
-                type: "points",
-                title: "Cộng điểm",
+                type: "info",
+                title: "Hủy chuyến",
                 message: `Vé trên chuyến xe ${busSchedule.route} đã bị hủy do thời tiết xấu`,
-                tab: "promotions",
+                tab: "events",
                 user: userId
             }))
 
