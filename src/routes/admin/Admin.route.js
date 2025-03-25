@@ -149,6 +149,7 @@ router
     .delete("/users/:id", AdminController.deleteUserByAdmin)
 // manage ticket
 router.get("/ticket", AdminController.getTicketByAdmin)
+    .put("/ticket", AdminController.updateTicketByAdmin);
 
 // manage bus
 router
