@@ -153,6 +153,15 @@ class AdminController {
         }
     }
 
+    async updateTicketByAdmin(req, res){
+        try{
+            const resData = await ManageTicketService.changeStatusTicket(req.body);
+            resExport(200, "Thành công", resData, res);
+        }catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
+
 
     async getAllBusByAdmin(req, res){
         try{
