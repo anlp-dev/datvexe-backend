@@ -49,10 +49,6 @@ class TripService {
             if(benXeKhoiHanh === benXeDichDen){
                 throw new Error("Địa điểm không hợp lệ, vui lòng thử lại !");
             }
-            const departureDate = new Date(date).getTime();
-            if(departureDate < Date.now()){
-                throw new Error("Ngày khởi hành không hợp lệ, vui lòng thử lại !");
-            }
             const stationStart = await BusStation.findOne({maBenXe: benXeKhoiHanh});
             const stationEnd = await BusStation.findOne({maBenXe: benXeDichDen});
             const busSchedule = await BusSchedule.find({
