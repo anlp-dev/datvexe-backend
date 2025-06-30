@@ -30,12 +30,14 @@ async function startServer(app) {
             console.log(`🚀 Server đang chạy tại cổng 9999 tại chế độ prod`);
         });
     }else {
-        app.listen(process.env.PORT, "0.0.0.0", () => {
-            console.log(`🚀 Server đang chạy tại http://localhost:9999 tại chế độ dev`);
-        });
+      app.listen(process.env.PORT, "0.0.0.0", () => {
+        console.log(
+          `🚀 Server đang chạy tại http://localhost:9999 tại chế độ dev`
+        );
+      });
 
-        const url = await ngrok.connect(process.env.PORT);
-        console.log(`🚀 Server đang chạy tại ${url} tại chế độ dev`);
+      //   const url = await ngrok.connect(process.env.PORT);
+      //   console.log(`🚀 Server đang chạy tại ${url} tại chế độ dev`);
     }
 }
 

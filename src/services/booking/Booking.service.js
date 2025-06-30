@@ -42,12 +42,13 @@ class BookingService{
     async getHistoryBookingByUserId(id){
         try{
             const busTrip = await BusTrip.find({
-                user: id,
-                status: { $in: ["cancelled", "completed"] }
+              user: id,
+              status: { $in: ["cancelled", "completed"] },
             })
-                .populate("busSchedule")
-                .sort({createdAt: -1})
-                .lean();
+              .populate("busSchedule")
+              .populate("user", "fullname email phone")
+              .sort({ createdAt: -1 })
+              .lean();
 
             if (busTrip.length < 1) throw new Error("Không tìm thấy lịch trình!");
 

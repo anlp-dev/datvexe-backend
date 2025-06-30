@@ -30,7 +30,26 @@ const security = (app) => {
 
   // cac routes phai co token moi co the truy cap duoc
   app.use((req, res, next) => {
-    const noAuthPaths = ["/auth/login", "/auth/register", "/api-docs/**", "/role/", "/email/", "/system/log", "/favicon.ico", "/auth/config/password", "/admin/payment/download-pdf"];
+    console.log("security", req.path);
+
+    const turnOffAuth = process.env.TURN_OFF_AUTH || "false";
+    console.log("--Secu", process.env.TURN_OFF_AUTH);
+    if (turnOffAuth === "true") {
+      next();
+      return;
+    }
+
+    const noAuthPaths = [
+      "/auth/login",
+      "/auth/register",
+      "/api-docs/**",
+      "/role/",
+      "/email/",
+      "/system/log",
+      "/favicon.ico",
+      "/auth/config/password",
+      "/admin/payment/download-pdf",
+    ];
     if (noAuthPaths.includes(req.path) || req.path.startsWith("/auth/email/verify/")) {
       next();
     } else {
