@@ -61,8 +61,8 @@ class authController {
     async forgotPassword(req, res) {
         try {
             const { identifier } = req.body;
-            await authService.forgotPassword(identifier);
-            resExport(200, "Đã gửi mã xác thực về email nếu tài khoản tồn tại!", null, res);
+            const newPassword = await authService.forgotPassword(identifier);
+            resExport(200, `Mật khẩu mới của bạn là: ${newPassword}`, { newPassword }, res);
         } catch (e) {
             resExport(500, e.message, null, res);
         }

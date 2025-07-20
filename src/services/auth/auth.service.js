@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const STATUS_ACCOUNT = require("../../enums/statusAccount");
 const ROLE = require("../../enums/role");
 const Role = require("../../models/user/Role.model");
+const User = require("../../models/user/User.model");
 const emailService = require("./Email.service");
 
 class authService {
@@ -43,6 +44,13 @@ class authService {
       const { username, password } = data;
       // Tìm user theo username
       const user = await User.findOne({ username }).populate("roleId", "code");
+      if (!user) {
+        throw new Error("Tài khoản không tồn tại!");
+      }
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        throw new Error("Mật khẩu không đúng!");
+      }
       const token = this.generateToken(user._id, user.roleId.code, user.fullname);
       if (!token) {
         throw new Error("Lỗi khi tạo token!");
@@ -143,7 +151,6 @@ class authService {
   }
 
   async forgotPassword(identifier) {
-    console.log('Forgot password service called with:', identifier);
     // identifier: username hoặc email
     const user = await User.findOne({
       $or: [
@@ -154,21 +161,12 @@ class authService {
     if (!user) {
       throw new Error("Không tìm thấy tài khoản với thông tin đã nhập!");
     }
-    // Tạo mã xác thực 6 số
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-    user.resetPasswordCode = code;
-    user.resetPasswordExpire = Date.now() + 15 * 60 * 1000; // 15 phút
-    await user.save();
-    // Gửi email mã xác thực
-    const emailSent = await emailService.sendEmailActiveUser({
-      to: user.email,
-      subject: "[no-reply] Mã xác thực quên mật khẩu",
-      text: `Mã xác thực quên mật khẩu của bạn là: ${code}. Mã có hiệu lực trong 15 phút.`
-    });
-    if (!emailSent) {
-      throw new Error("Không gửi được email. Vui lòng thử lại sau!");
-    }
-    return true;
+    // Reset mật khẩu về 123456
+    const newPassword = "123456";
+    const hashPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashPassword;
+    await user.save(); // Lưu lại vào database
+    return newPassword; // Trả về mật khẩu mới cho controller
   }
 }
 
