@@ -57,6 +57,16 @@ class authController {
             resExport(500, e.message, null, res);
         }
     }
+
+    async forgotPassword(req, res) {
+        try {
+            const { identifier } = req.body;
+            await authService.forgotPassword(identifier);
+            resExport(200, "Đã gửi mã xác thực về email nếu tài khoản tồn tại!", null, res);
+        } catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
 }
 
 module.exports = new authController();

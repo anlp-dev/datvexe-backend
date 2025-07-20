@@ -1,4 +1,4 @@
-const User = require("../../models/user/User.model");
+
 const { v4: uuidv4 } = require("uuid");
 const secret = require("../../configs/Secrets");
 const jwt = require("jsonwebtoken");
@@ -140,6 +140,35 @@ class authService {
     }catch (e) {
       throw new Error(e);
     }
+  }
+
+  async forgotPassword(identifier) {
+    console.log('Forgot password service called with:', identifier);
+    // identifier: username hoặc email
+    const user = await User.findOne({
+      $or: [
+        { username: identifier },
+        { email: identifier }
+      ]
+    });
+    if (!user) {
+      throw new Error("Không tìm thấy tài khoản với thông tin đã nhập!");
+    }
+    // Tạo mã xác thực 6 số
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    user.resetPasswordCode = code;
+    user.resetPasswordExpire = Date.now() + 15 * 60 * 1000; // 15 phút
+    await user.save();
+    // Gửi email mã xác thực
+    const emailSent = await emailService.sendEmailActiveUser({
+      to: user.email,
+      subject: "[no-reply] Mã xác thực quên mật khẩu",
+      text: `Mã xác thực quên mật khẩu của bạn là: ${code}. Mã có hiệu lực trong 15 phút.`
+    });
+    if (!emailSent) {
+      throw new Error("Không gửi được email. Vui lòng thử lại sau!");
+    }
+    return true;
   }
 }
 

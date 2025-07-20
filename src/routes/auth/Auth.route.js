@@ -79,4 +79,6 @@ router.put("/profile/:id", authContoller.updateProfileUser);
 
 router.post("/changePassword/user", authContoller.changePassworldUser);
 
+router.post("/forgot-password", authContoller.forgotPassword);
+
 module.exports = router;
