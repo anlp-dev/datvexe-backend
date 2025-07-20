@@ -18,6 +18,8 @@ const User = new Schema({
     loyaltyPoints: { type: Number, default: 0 }, // Điểm tích lũy
     referralCode: { type: String, default: null }, // Mã giới thiệu
     isBlocked: { type: Boolean, default: false }, // Trạng thái khóa tài khoản
+    resetPasswordCode: { type: String, default: null }, // Mã xác thực quên mật khẩu
+    resetPasswordExpire: { type: Date, default: null }, // Thời gian hết hạn mã
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: null },
     deleteAt: { type: Date, default: null },

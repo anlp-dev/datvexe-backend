@@ -57,6 +57,16 @@ class authController {
             resExport(500, e.message, null, res);
         }
     }
+
+    async forgotPassword(req, res) {
+        try {
+            const { identifier } = req.body;
+            const newPassword = await authService.forgotPassword(identifier);
+            resExport(200, `Mật khẩu mới của bạn là: ${newPassword}`, { newPassword }, res);
+        } catch (e) {
+            resExport(500, e.message, null, res);
+        }
+    }
 }
 
 module.exports = new authController();

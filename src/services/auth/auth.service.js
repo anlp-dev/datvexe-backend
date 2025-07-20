@@ -1,4 +1,4 @@
-const User = require("../../models/user/User.model");
+
 const { v4: uuidv4 } = require("uuid");
 const secret = require("../../configs/Secrets");
 const jwt = require("jsonwebtoken");
@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const STATUS_ACCOUNT = require("../../enums/statusAccount");
 const ROLE = require("../../enums/role");
 const Role = require("../../models/user/Role.model");
+const User = require("../../models/user/User.model");
 const emailService = require("./Email.service");
 
 class authService {
@@ -43,6 +44,13 @@ class authService {
       const { username, password } = data;
       // Tìm user theo username
       const user = await User.findOne({ username }).populate("roleId", "code");
+      if (!user) {
+        throw new Error("Tài khoản không tồn tại!");
+      }
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        throw new Error("Mật khẩu không đúng!");
+      }
       const token = this.generateToken(user._id, user.roleId.code, user.fullname);
       if (!token) {
         throw new Error("Lỗi khi tạo token!");
@@ -140,6 +148,25 @@ class authService {
     }catch (e) {
       throw new Error(e);
     }
+  }
+
+  async forgotPassword(identifier) {
+    // identifier: username hoặc email
+    const user = await User.findOne({
+      $or: [
+        { username: identifier },
+        { email: identifier }
+      ]
+    });
+    if (!user) {
+      throw new Error("Không tìm thấy tài khoản với thông tin đã nhập!");
+    }
+    // Reset mật khẩu về 123456
+    const newPassword = "123456";
+    const hashPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashPassword;
+    await user.save(); // Lưu lại vào database
+    return newPassword; // Trả về mật khẩu mới cho controller
   }
 }
 
